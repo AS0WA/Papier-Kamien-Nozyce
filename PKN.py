@@ -11,7 +11,8 @@ def paper():
     elif player_symbol == 'p' and computer_symbol == 'n':
         print('przegrywasz')
         computer_points += 1
-    else: print('remis')
+    else:
+        print('remis')
 
 def rock():
     global player_points, computer_points
@@ -21,7 +22,8 @@ def rock():
     elif player_symbol == 'k' and computer_symbol == 'p':
         print('przegrywasz')
         computer_points += 1
-    else: print('remis')
+    else:
+        print('remis')
 
 def scissors():
     global player_points, computer_points
@@ -31,7 +33,8 @@ def scissors():
     elif player_symbol == 'n' and computer_symbol == 'k':
         print('przegrywasz')
         computer_points += 1
-    else: print('remis')
+    else:
+        print('remis')
 
 symbols = ['p', 'k', 'n']
 
@@ -40,7 +43,8 @@ while True:
         player_symbol = input('Podaj znak: papier(p), kamień(k), nożyce(n):''\n' )
         if player_symbol != 'p' and player_symbol != 'k' and player_symbol != 'n':
             print('Nie poprawna litera')
-        else: break
+        else:
+            break
 
     computer_symbol = random.choice(symbols)
 
