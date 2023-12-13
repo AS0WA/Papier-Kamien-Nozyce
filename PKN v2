@@ -1,0 +1,81 @@
+import random
+import PySimpleGUI as sg
+
+
+player_points = 0
+computer_points = 0
+
+
+def paper():
+    global player_points, computer_points
+    if computer_symbol == 'k':
+        window['result'].update('wygrywasz')
+        player_points += 1
+    elif computer_symbol == 'n':
+        window['result'].update('przegrywasz')
+        computer_points += 1
+    else:
+        window['result'].update('remis')
+
+
+def rock():
+    global player_points, computer_points
+    if computer_symbol == 'n':
+        window['result'].update('wygrywasz')
+        player_points += 1
+    elif computer_symbol == 'p':
+        window['result'].update('przegrywasz')
+        computer_points += 1
+    else:
+        window['result'].update('remis')
+
+
+def scissors():
+    global player_points, computer_points
+    if computer_symbol == 'p':
+        window['result'].update('wygrywasz')
+        player_points += 1
+    elif computer_symbol == 'k':
+        window['result'].update('przegrywasz')
+        computer_points += 1
+    else:
+        window['result'].update('remis')
+
+
+symbols = ['p', 'k', 'n']
+round_count = 0
+
+
+layout = [[sg.Text('Twoje punkty:'), sg.Text('', key='player_points'), sg.Text('Runda:'), sg.Text('', key='round'), sg.Text('Punkty komputera:'), sg.Text('', key='computer_points')],
+          [sg.Text('papier(p), kamień(k), nożyce(n)')],
+          [sg.Text('Podaj znak:'), sg.InputText('', key='player_symbol', size=2), sg.Text('Znak komputera:'), sg.Text('', key='computer_symbol')],
+          [],
+          [sg.Text('Wynik:'), sg.Text('', key='result')],
+          [sg.Button('OK'), sg.Button('Cancel')]]
+
+window = sg.Window('PKN', layout)
+
+
+while True:
+    event, values = window.read()
+    if event == sg.WIN_CLOSED or event == 'Cancel':
+        break
+    if event == 'OK':
+        round_count += 1
+
+        computer_symbol = random.choice(symbols)
+        window['computer_symbol'].update(computer_symbol)
+
+        if values['player_symbol'] == 'p':
+            paper()
+        elif values['player_symbol'] == 'k':
+            rock()
+        elif values['player_symbol'] == 'n':
+            scissors()
+        else:
+            window['result'].update('Nie poprawna litera')
+            round_count -= 1
+
+        window['player_points'].update(player_points)
+        window['computer_points'].update(computer_points)
+        window['round'].update(round_count)
