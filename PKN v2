@@ -18,7 +18,7 @@ def draw():
     window["result"].update("remis")
 
 
-symbols = ["p", "k", "n"]
+symbols = ["Papier", "Kamien", "Nozyce"]
 round_count = 0
 player_points = 0
 computer_points = 0
@@ -32,15 +32,17 @@ layout = [
         sg.Text("Punkty komputera:"),
         sg.Text("", key="computer_points"),
     ],
-    [sg.Text("papier(p), kamień(k), nożyce(n)")],
     [
-        sg.Text("Podaj znak:"),
-        sg.InputText("", key="player_symbol", size=2),
+        sg.Button("Papier", key="paper"),
+        sg.Button("Kamień", key="rock"),
+        sg.Button("Nożyce", key="scissors"),
+    ],
+    [
         sg.Text("Znak komputera:"),
         sg.Text("", key="computer_symbol"),
     ],
     [sg.Text("Wynik:"), sg.Text("", key="result")],
-    [sg.Button("OK"), sg.Button("Cancel")],
+    [sg.Button("Cancel")],
 ]
 
 window = sg.Window("PKN", layout)
@@ -50,36 +52,32 @@ while True:
     event, values = window.read()
     if event == sg.WIN_CLOSED or event == "Cancel":
         break
-    if event == "OK":
-        computer_symbol = choice(symbols)
-        window["computer_symbol"].update(computer_symbol)
+    computer_symbol = choice(symbols)
 
-        if values["player_symbol"] == "p":
-            if computer_symbol == "k":
-                win()
-            elif computer_symbol == "n":
-                lose()
-            else:
-                draw()
-        elif values["player_symbol"] == "k":
-            if computer_symbol == "n":
-                win()
-            elif computer_symbol == "p":
-                lose()
-            else:
-                draw()
-        elif values["player_symbol"] == "n":
-            if computer_symbol == "p":
-                win()
-            elif computer_symbol == "k":
-                lose()
-            else:
-                draw()
+    if event == "paper":
+        if computer_symbol == "Kamien":
+            win()
+        elif computer_symbol == "Nozyce":
+            lose()
         else:
-            window["result"].update("Nie poprawna litera")
-            round_count -= 1
+            draw()
+    elif event == "rock":
+        if computer_symbol == "Nozyce":
+            win()
+        elif computer_symbol == "Papier":
+            lose()
+        else:
+            draw()
+    elif event == "scissors":
+        if computer_symbol == "Papier":
+            win()
+        elif computer_symbol == "Kamien":
+            lose()
+        else:
+            draw()
 
-        round_count += 1
-        window["player_points"].update(player_points)
-        window["computer_points"].update(computer_points)
-        window["round"].update(round_count)
+    round_count += 1
+    window["computer_symbol"].update(computer_symbol)
+    window["player_points"].update(player_points)
+    window["computer_points"].update(computer_points)
+    window["round"].update(round_count)
