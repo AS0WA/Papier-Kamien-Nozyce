@@ -18,11 +18,6 @@ def draw():
     window["result"].update("remis")
 
 
-symbols = ["Papier", "Kamien", "Nozyce"]
-round_count = 0
-player_points = 0
-computer_points = 0
-
 layout = [
     [
         sg.Text("Twoje punkty:"),
@@ -47,6 +42,11 @@ layout = [
 
 window = sg.Window("PKN", layout)
 
+
+symbols = ["Papier", "Kamien", "Nozyce"]
+round_count = 0
+player_points = 0
+computer_points = 0
 
 while True:
     event, values = window.read()
